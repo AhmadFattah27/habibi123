@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmad Fattah Shahab | Skybound Habibi</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyberDark: '#070913',
+                        cyberCard: 'rgba(15, 23, 42, 0.75)',
+                        neonCyan: '#00f3ff',
+                        neonPurple: '#9d4edd',
+                        neonYellow: '#ffe600',
+                        neonPink: '#ff007f'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-15px) rotate(3deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #070913;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism utility */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-panel-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .glass-panel-hover:hover {
+            transform: translateY(-6px) scale(1.01);
+            border-color: rgba(0, 243, 255, 0.4);
+            box-shadow: 0 12px 40px rgba(0, 243, 255, 0.25);
+        }
+
+        /* Text Neon Glow Effects */
+        .text-glow-cyan {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.7), 0 0 20px rgba(0, 243, 255, 0.4);
+        }
+        .text-glow-purple {
+            text-shadow: 0 0 10px rgba(157, 78, 221, 0.7), 0 0 20px rgba(157, 78, 221, 0.4);
+        }
+
+        /* Glowing Border Animation */
+        .glow-avatar-container {
+            position: relative;
+        }
+        .glow-avatar-container::before {
+            content: '';
+            position: absolute;
+            top: -6px; left: -6px; right: -6px; bottom: -6px;
+            background: linear-gradient(45deg, #00f3ff, #9d4edd, #ffe600, #ff007f, #00f3ff);
+            background-size: 400%;
+            z-index: 0;
+            border-radius: 9999px;
+            animation: steam 15s linear infinite;
+            filter: blur(12px);
+            opacity: 0.85;
+        }
+
+        @keyframes steam {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070913;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f3ff;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-neonCyan selection:text-cyberDark">
+
+    <!-- Interactive Canvas Background -->
+    <canvas id="bg-canvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0"></canvas>
+
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/5 py-4 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="#hero" class="text-2xl font-display font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-neonCyan via-white to-neonPurple hover:opacity-90 transition">
+                SKYBOUND<span class="text-neonYellow">.HABIBI</span>
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wide">
+                <a href="#about" class="hover:text-neonCyan transition-colors">ABOUT</a>
+                <a href="#quote" class="hover:text-neonCyan transition-colors">QUOTE</a>
+                <a href="#hobbies" class="hover:text-neonCyan transition-colors">LEARNING & HOBBIES</a>
+                <a href="#achievements" class="hover:text-neonCyan transition-colors">ACHIEVEMENTS</a>
+                <a href="#skills" class="hover:text-neonCyan transition-colors">SKILLS</a>
+                <a href="#contact" class="px-5 py-2 rounded-full border border-neonCyan/40 bg-neonCyan/10 text-neonCyan hover:bg-neonCyan hover:text-cyberDark transition-all duration-300 font-bold shadow-[0_0_15px_rgba(0,243,255,0.2)]">
+                    CONTACT ME
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl text-neonCyan focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4 pt-4 border-t border-white/10 flex flex-col space-y-3 font-semibold text-center">
+            <a href="#about" class="mobile-link py-2 hover:text-neonCyan">ABOUT</a>
+            <a href="#quote" class="mobile-link py-2 hover:text-neonCyan">QUOTE</a>
+            <a href="#hobbies" class="mobile-link py-2 hover:text-neonCyan">LEARNING & HOBBIES</a>
+            <a href="#achievements" class="mobile-link py-2 hover:text-neonCyan">ACHIEVEMENTS</a>
+            <a href="#skills" class="mobile-link py-2 hover:text-neonCyan">SKILLS</a>
+            <a href="#contact" class="mobile-link py-2 text-neonCyan font-bold">CONTACT ME</a>
+        </div>
+    </header>
+
+    <main class="relative z-10 pt-24">
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="min-h-[90vh] flex items-center justify-center px-6 py-12 relative overflow-hidden">
+            <!-- Floating Decorative Icons -->
+            <div class="absolute top-20 left-10 text-neonCyan/20 text-6xl animate-float"><i class="fa-solid fa-basketball"></i></div>
+            <div class="absolute bottom-20 right-10 text-neonPurple/20 text-6xl animate-float" style="animation-delay: 2s;"><i class="fa-solid fa-guitar"></i></div>
+            <div class="absolute top-1/2 right-1/4 text-neonYellow/10 text-7xl animate-float" style="animation-delay: 4s;"><i class="fa-solid fa-gamepad"></i></div>
+
+            <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Text Info -->
+                <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-neonYellow/30 bg-neonYellow/10 text-neonYellow font-semibold text-xs tracking-widest uppercase">
+                        <span class="w-2 h-2 rounded-full bg-neonYellow animate-ping"></span>
+                        High Achiever & Fast Adapter
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-display font-extrabold tracking-tight leading-tight">
+                        AHMAD FATTAH <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-neonCyan via-neonPurple to-neonYellow text-glow-cyan">
+                            SHAHAB
+                        </span>
+                    </h1>
+                    
+                    <div class="text-xl sm:text-2xl font-bold text-neonCyan font-display tracking-wide flex items-center justify-center lg:justify-start gap-3">
+                        <i class="fa-solid fa-bolt text-neonYellow"></i> Alias: <span class="text-white underline decoration-neonPurple decoration-4">Skybound Habibi</span>
+                    </div>
+
+                    <p class="text-gray-300 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0 glass-panel p-6 rounded-2xl border-l-4 border-l-neonCyan">
+                        "A fast learner and quick adapter with a sharp mind. Whether it's mastering new skills or pushing my limits on the basketball court, I work smart, stay curious, and always aim high."
+                    </p>
+
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#contact" class="px-8 py-4 rounded-xl bg-gradient-to-r from-neonCyan to-blue-600 text-cyberDark font-extrabold text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(0,243,255,0.4)] hover:shadow-[0_0_35px_rgba(0,243,255,0.7)] hover:scale-105 transition-all duration-300 flex items-center gap-3">
+                            <i class="fa-solid fa-paper-plane"></i> Get In Touch
+                        </a>
+                        <a href="#achievements" class="px-8 py-4 rounded-xl glass-panel text-white font-bold text-sm tracking-wider uppercase border border-white/20 hover:border-neonPurple hover:text-neonPurple hover:scale-105 transition-all duration-300 flex items-center gap-3">
+                            <i class="fa-solid fa-trophy"></i> View Victories
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Profile Picture Container -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 glow-avatar-container">
+                        <div class="relative w-full h-full rounded-full overflow-hidden border-4 border-cyberDark z-10 bg-slate-900 shadow-2xl">
+                            <img src="Screenshot 2026-11-10 164608.png" alt="Ahmad Fattah Shahab" class="w-full h-full object-cover object-center scale-105 hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='https://placehold.co/400x400/0f172a/00f3ff?text=Skybound+Habibi';">
+                        </div>
+                        
+                        <!-- Floating Badge -->
+                        <div class="absolute -bottom-2 -right-2 z-20 glass-panel p-3 px-5 rounded-2xl border border-neonCyan/40 flex items-center gap-3 shadow-lg">
+                            <div class="w-10 h-10 rounded-full bg-neonCyan/20 flex items-center justify-center text-neonCyan text-xl">
+                                <i class="fa-solid fa-crown"></i>
+                            </div>
+                            <div class="text-left">
+                                <p class="text-[10px] uppercase tracking-wider text-gray-400 font-bold">Status</p>
+                                <p class="text-xs font-bold text-white">Unstoppable Mindset</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FEATURED QUOTE SECTION -->
+        <section id="quote" class="py-16 px-6 max-w-5xl mx-auto">
+            <div class="relative glass-panel rounded-3xl p-8 sm:p-12 border border-neonPurple/40 shadow-[0_0_40px_rgba(157,78,221,0.15)] overflow-hidden text-center group">
+                <div class="absolute -right-10 -bottom-10 text-9xl text-white/5 font-serif select-none pointer-events-none group-hover:text-neonPurple/10 transition-colors">”</div>
+                <div class="inline-block p-3 rounded-full bg-neonPurple/10 text-neonPurple mb-6">
+                    <i class="fa-solid fa-quote-left text-2xl sm:text-3xl"></i>
+                </div>
+                <blockquote class="text-xl sm:text-3xl font-display font-extrabold text-white leading-relaxed italic tracking-wide">
+                    "It's not whether you get knocked down, it's whether you get up."
+                </blockquote>
+                <div class="mt-4 text-neonYellow font-bold tracking-widest text-sm uppercase">
+                    — Vince Lombardi
+                </div>
+                <div class="mt-6 flex items-center justify-center gap-3">
+                    <span class="h-0.5 w-12 bg-neonCyan"></span>
+                    <span class="text-sm uppercase tracking-widest font-bold text-neonCyan">Unstoppable Perseverance</span>
+                    <span class="h-0.5 w-12 bg-neonCyan"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FUN FACTS SECTION -->
+        <section id="about" class="py-20 px-6 max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+                    FUN <span class="text-neonCyan text-glow-cyan">FACTS</span>
+                </h2>
+                <p class="text-gray-400 mt-3 font-semibold text-sm sm:text-base">Get to know the unique sides of Skybound Habibi</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Fact 1 -->
+                <div class="glass-panel glass-panel-hover p-8 rounded-3xl relative overflow-hidden border-t-2 border-t-neonCyan group">
+                    <div class="w-16 h-16 rounded-2xl bg-neonCyan/10 text-neonCyan flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                        👃
+                    </div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-neonCyan block mb-2">Fact #01</span>
+                    <h3 class="text-2xl font-bold text-white mb-3">Big Nose Energy</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm">
+                        Distinct feature, sharp presence! Embracing uniqueness with 100% confidence and high energy every single day.
+                    </p>
+                </div>
+
+                <!-- Fact 2 -->
+                <div class="glass-panel glass-panel-hover p-8 rounded-3xl relative overflow-hidden border-t-2 border-t-neonYellow group">
+                    <div class="w-16 h-16 rounded-2xl bg-neonYellow/10 text-neonYellow flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                        🏫
+                    </div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-neonYellow block mb-2">Fact #02</span>
+                    <h3 class="text-2xl font-bold text-white mb-3">Accepted in Jubilee</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm">
+                        Proudly accepted into Jubilee School, proving academic dedication, sharp intelligence, and competitive ambition.
+                    </p>
+                </div>
+
+                <!-- Fact 3 -->
+                <div class="glass-panel glass-panel-hover p-8 rounded-3xl relative overflow-hidden border-t-2 border-t-neonPurple group">
+                    <div class="w-16 h-16 rounded-2xl bg-neonPurple/10 text-neonPurple flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
+                        📜
+                    </div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-neonPurple block mb-2">Fact #03</span>
+                    <h3 class="text-2xl font-bold text-white mb-3">Noble Lineage</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm">
+                        Family lineage traces directly back to Prophet Muhammad — carrying honor, responsibility, and historical heritage.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTERESTS, HOBBIES & CURRENTLY LEARNING -->
+        <section id="hobbies" class="py-20 px-6 max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                
+                <!-- Interests & Hobbies Card -->
+                <div class="glass-panel p-8 sm:p-10 rounded-3xl border border-white/10 relative">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-12 h-12 rounded-xl bg-neonCyan/20 text-neonCyan flex items-center justify-center text-2xl">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-display font-extrabold text-white">Interests & Hobbies</h3>
+                            <p class="text-xs text-gray-400 uppercase tracking-widest">What keeps me energized</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between hover:bg-neonCyan/10 hover:border-neonCyan/30 transition-all">
+                            <div class="flex items-center gap-4">
+                                <span class="text-3xl">🏀</span>
+                                <div>
+                                    <h4 class="font-bold text-white">Basketball</h4>
+                                    <p class="text-xs text-gray-400">Competitive player, court control & team leadership</p>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-xs font-bold bg-neonCyan/20 text-neonCyan">Active</span>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between hover:bg-neonPurple/10 hover:border-neonPurple/30 transition-all">
+                            <div class="flex items-center gap-4">
+                                <span class="text-3xl">✈️</span>
+                                <div>
+                                    <h4 class="font-bold text-white">Travelling</h4>
+                                    <p class="text-xs text-gray-400">Exploring new horizons & discovering new cultures</p>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-xs font-bold bg-neonPurple/20 text-neonPurple">Explorer</span>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between hover:bg-neonYellow/10 hover:border-neonYellow/30 transition-all">
+                            <div class="flex items-center gap-4">
+                                <span class="text-3xl">🎮</span>
+                                <div>
+                                    <h4 class="font-bold text-white">Gaming</h4>
+                                    <p class="text-xs text-gray-400">Strategic thinking & fast reflex challenges</p>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-xs font-bold bg-neonYellow/20 text-neonYellow">Gamer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Currently Learning Section -->
+                <div class="glass-panel p-8 sm:p-10 rounded-3xl border border-white/10 relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-12 h-12 rounded-xl bg-neonPurple/20 text-neonPurple flex items-center justify-center text-2xl">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-display font-extrabold text-white">Currently Mastering</h3>
+                                <p class="text-xs text-gray-400 uppercase tracking-widest">Self-taught continuous growth</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- Learning Item 1 -->
+                            <div class="p-5 rounded-2xl bg-gradient-to-r from-red-500/10 to-transparent border border-red-500/20">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fa-brands fa-youtube text-red-500 text-2xl"></i>
+                                        <h4 class="font-bold text-white">Guitar Fingerstyle Tricks</h4>
+                                    </div>
+                                    <span class="text-xs text-gray-400">YouTube Pursuit</span>
+                                </div>
+                                <p class="text-xs text-gray-300">Leveling up acoustic acoustic control, percussive taps, and complex melodies.</p>
+                                <div class="w-full bg-slate-800 h-2 rounded-full mt-3 overflow-hidden">
+                                    <div class="bg-red-500 h-full w-3/4 rounded-full animate-pulse"></div>
+                                </div>
+                            </div>
+
+                            <!-- Learning Item 2 -->
+                            <div class="p-5 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-transparent border border-emerald-500/20">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fa-solid fa-language text-emerald-400 text-2xl"></i>
+                                        <h4 class="font-bold text-white">Arabic Language</h4>
+                                    </div>
+                                    <span class="text-xs text-gray-400">YouTube Pursuit</span>
+                                </div>
+                                <p class="text-xs text-gray-300">Expanding linguistic capabilities, grammar comprehension, and conversational fluency.</p>
+                                <div class="w-full bg-slate-800 h-2 rounded-full mt-3 overflow-hidden">
+                                    <div class="bg-emerald-400 h-full w-3/5 rounded-full animate-pulse"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-gray-400">
+                        <span><i class="fa-solid fa-fire text-neonYellow"></i> Daily Grind Mindset</span>
+                        <span>100% Self-Driven</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PROJECTS & ACHIEVEMENTS TIMELINE -->
+        <section id="achievements" class="py-20 px-6 max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+                    VICTORIES & <span class="text-neonYellow text-glow-purple">ACHIEVEMENTS</span>
+                </h2>
+                <p class="text-gray-400 mt-3 font-semibold text-sm sm:text-base">Tournament podiums and academic excellence</p>
+            </div>
+
+            <div class="relative border-l-2 border-neonCyan/30 ml-4 sm:ml-32 space-y-12">
+                
+                <!-- Achievement 1 -->
+                <div class="relative pl-8 group">
+                    <!-- Circle Marker -->
+                    <div class="absolute -left-[17px] top-1 w-8 h-8 rounded-full bg-cyberDark border-2 border-neonYellow text-neonYellow flex items-center justify-center text-sm shadow-[0_0_15px_rgba(255,230,0,0.5)] group-hover:scale-125 transition-transform">
+                        🏆
+                    </div>
+                    <div class="glass-panel p-6 sm:p-8 rounded-2xl glass-panel-hover border-l-4 border-l-neonYellow">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold bg-neonYellow/20 text-neonYellow border border-neonYellow/40">1ST PLACE - CHAMPION</span>
+                            <span class="text-xs font-bold text-gray-400 font-mono">2025</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">Acalapati Cup 2025</h3>
+                        <p class="text-sm text-gray-300 mt-2">
+                            Basketball tournament hosted by <strong class="text-neonCyan">Garuda Acalapati Basketball Club</strong>. Dominated the court to take home 1st place trophy.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Achievement 2 -->
+                <div class="relative pl-8 group">
+                    <!-- Circle Marker -->
+                    <div class="absolute -left-[17px] top-1 w-8 h-8 rounded-full bg-cyberDark border-2 border-neonCyan text-neonCyan flex items-center justify-center text-sm shadow-[0_0_15px_rgba(0,243,255,0.5)] group-hover:scale-125 transition-transform">
+                        🥈
+                    </div>
+                    <div class="glass-panel p-6 sm:p-8 rounded-2xl glass-panel-hover border-l-4 border-l-neonCyan">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold bg-neonCyan/20 text-neonCyan border border-neonCyan/40">2ND PLACE - RUNNER UP</span>
+                            <span class="text-xs font-bold text-gray-400 font-mono">2026</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">Gladiators Open Tournament 2026</h3>
+                        <p class="text-sm text-gray-300 mt-2">
+                            High-stakes basketball tournament hosted by <strong class="text-neonCyan">Gladiators Basketball Club</strong>. Secured 2nd place runner-up honors.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Achievement 3 -->
+                <div class="relative pl-8 group">
+                    <!-- Circle Marker -->
+                    <div class="absolute -left-[17px] top-1 w-8 h-8 rounded-full bg-cyberDark border-2 border-neonPurple text-neonPurple flex items-center justify-center text-sm shadow-[0_0_15px_rgba(157,78,221,0.5)] group-hover:scale-125 transition-transform">
+                        🧠
+                    </div>
+                    <div class="glass-panel p-6 sm:p-8 rounded-2xl glass-panel-hover border-l-4 border-l-neonPurple">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold bg-neonPurple/20 text-neonPurple border border-neonPurple/40">NATIONAL FINALIST</span>
+                            <span class="text-xs font-bold text-gray-400 font-mono">COMPETITION</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white">KMNR (Kompetisi Matematika Nalaria Realistik Se-Indonesia)</h3>
+                        <p class="text-sm text-gray-300 mt-2">
+                            Demonstrated advanced mathematical problem-solving & realistic logic to become a national finalist in KMNR.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SKILLS & LANGUAGES -->
+        <section id="skills" class="py-20 px-6 max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+                    SKILLS & <span class="text-neonCyan text-glow-cyan">LANGUAGES</span>
+                </h2>
+                <p class="text-gray-400 mt-3 font-semibold text-sm sm:text-base">Capabilities breakdown and proficiency ratings</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Core Competencies -->
+                <div class="glass-panel p-8 rounded-3xl border border-white/10">
+                    <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-sliders text-neonCyan"></i> Skill Proficiency
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <!-- Technical Skills -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-bold text-gray-200">Technical Skills</span>
+                                <span class="px-2.5 py-0.5 rounded text-xs font-extrabold bg-neonCyan/20 text-neonCyan border border-neonCyan/30">CONFIDENT</span>
+                            </div>
+                            <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden p-0.5 border border-white/10">
+                                <div class="bg-gradient-to-r from-neonCyan to-blue-500 h-full rounded-full w-[90%] shadow-[0_0_12px_rgba(0,243,255,0.6)]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Creative Skills -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-bold text-gray-200">Creative Skills</span>
+                                <span class="px-2.5 py-0.5 rounded text-xs font-extrabold bg-neonPurple/20 text-neonPurple border border-neonPurple/30">INTERMEDIATE</span>
+                            </div>
+                            <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden p-0.5 border border-white/10">
+                                <div class="bg-gradient-to-r from-neonPurple to-pink-500 h-full rounded-full w-[70%] shadow-[0_0_12px_rgba(157,78,221,0.6)]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Soft Skills -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-bold text-gray-200">Soft Skills (Leadership & Adaptability)</span>
+                                <span class="px-2.5 py-0.5 rounded text-xs font-extrabold bg-neonYellow/20 text-neonYellow border border-neonYellow/30">INTERMEDIATE</span>
+                            </div>
+                            <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden p-0.5 border border-white/10">
+                                <div class="bg-gradient-to-r from-neonYellow to-amber-500 h-full rounded-full w-[75%] shadow-[0_0_12px_rgba(255,230,0,0.6)]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Languages Spoken -->
+                <div class="glass-panel p-8 rounded-3xl border border-white/10">
+                    <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-earth-americas text-neonPurple"></i> Languages Spoken
+                    </h3>
+
+                    <div class="space-y-4">
+                        <!-- Indonesian -->
+                        <div class="p-4 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">🇮🇩</span>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">Indonesian</h4>
+                                    <p class="text-xs text-gray-400">Native / Fluent</p>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">CONFIDENT</span>
+                        </div>
+
+                        <!-- English -->
+                        <div class="p-4 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">🇬🇧</span>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">English</h4>
+                                    <p class="text-xs text-gray-400">Full Professional Competency</p>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-neonCyan/20 text-neonCyan border border-neonCyan/40">CONFIDENT</span>
+                        </div>
+
+                        <!-- Mandarin -->
+                        <div class="p-4 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">🇨🇳</span>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">Mandarin</h4>
+                                    <p class="text-xs text-gray-400">Basic & Conversational</p>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-neonPurple/20 text-neonPurple border border-neonPurple/40">BEGINNER</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CONTACT & SOCIAL SECTION -->
+        <section id="contact" class="py-20 px-6 max-w-4xl mx-auto">
+            <div class="glass-panel p-8 sm:p-14 rounded-3xl border border-neonCyan/30 text-center relative overflow-hidden shadow-[0_0_50px_rgba(0,243,255,0.15)]">
+                <!-- Background Accent Blur -->
+                <div class="absolute -top-24 -left-24 w-48 h-48 bg-neonCyan/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-neonPurple/20 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="w-16 h-16 mx-auto rounded-full bg-neonCyan/10 border border-neonCyan/30 flex items-center justify-center text-neonCyan text-3xl mb-6">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </div>
+
+                <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-white mb-4">
+                    LET'S CONNECT!
+                </h2>
+                <p class="text-gray-300 text-sm sm:text-base max-w-lg mx-auto mb-8">
+                    Have a question, tournament invite, or collaboration idea? Drop an email and let's reach new heights together.
+                </p>
+
+                <!-- Interactive Email Card -->
+                <div class="inline-flex flex-col sm:flex-row items-center justify-between gap-4 p-3 sm:p-4 rounded-2xl bg-slate-900/90 border border-white/10 max-w-xl w-full mx-auto">
+                    <div class="flex items-center gap-3 px-3 overflow-hidden text-ellipsis w-full justify-center sm:justify-start">
+                        <i class="fa-regular fa-envelope text-neonCyan text-xl"></i>
+                        <span id="email-text" class="text-xs sm:text-sm font-mono font-bold text-gray-200 select-all">ahmad.fattah.shahab@harapanprestasi.sch.id</span>
+                    </div>
+                    <button id="copy-btn" onclick="copyEmail()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-neonCyan text-cyberDark font-extrabold text-xs tracking-wider uppercase hover:bg-white hover:shadow-[0_0_20px_rgba(255,255,255,0.8)] transition-all flex items-center justify-center gap-2">
+                        <i class="fa-regular fa-copy"></i>
+                        <span id="btn-text">COPY EMAIL</span>
+                    </button>
+                </div>
+
+                <!-- Toast Notification Box -->
+                <div id="toast" class="hidden fixed bottom-10 right-10 bg-neonCyan text-cyberDark font-bold px-6 py-3 rounded-xl shadow-2xl z-50 flex items-center gap-2 transition-all">
+                    <i class="fa-solid fa-circle-check"></i> Email copied to clipboard!
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/5 py-8 text-center text-xs text-gray-500 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>© 2026 Ahmad Fattah Shahab (Skybound Habibi). All rights reserved.</p>
+            <div class="flex items-center space-x-4">
+                <span class="text-neonCyan"><i class="fa-solid fa-bolt"></i> Aim High</span>
+                <span>•</span>
+                <span class="text-neonPurple"><i class="fa-solid fa-basketball"></i> Play Hard</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE BACKGROUND & LOGIC SCRIPT -->
+    <script>
+        // Particle Dynamic Background
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particlesArray = [];
+        let numberOfParticles = 50;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() * 1.5) - 0.75;
+                this.speedY = (Math.random() * 1.5) - 0.75;
+                const colors = ['#00f3ff', '#9d4edd', '#ffe600'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.alpha = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            numberOfParticles = Math.floor((canvas.width * canvas.height) / 20000);
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        window.onload = function() {
+            resizeCanvas();
+            initParticles();
+            animateParticles();
+        };
+
+        // Mobile Menu Toggle Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Copy Email Functionality (Using execCommand fallback safe method)
+        function copyEmail() {
+            const emailText = document.getElementById('email-text').innerText;
+            const btnText = document.getElementById('btn-text');
+            const toast = document.getElementById('toast');
+
+            // Fallback copy execution
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = emailText;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+
+            // Button state change
+            btnText.innerText = "COPIED!";
+            toast.classList.remove('hidden');
+
+            setTimeout(() => {
+                btnText.innerText = "COPY EMAIL";
+                toast.classList.add('hidden');
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
